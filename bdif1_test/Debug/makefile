@@ -44,7 +44,7 @@ all: bdif1_test
 bdif1_test: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	g++  -o "bdif1_test" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/usr/local/Cellar/boost/1.55.0/lib/ -o "bdif1_test" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

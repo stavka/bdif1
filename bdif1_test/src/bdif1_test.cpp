@@ -28,24 +28,28 @@ using namespace std;
 int main(void) {
 
 	std::ifstream in("data100k.txt");
-	std::ofstream out("data_clean.txt");
+	std::ofstream out("signal.txt");
+	std::ofstream garbage("noise.txt");
 
 
 	START_TIMER;
 
 	while (in)
 	{
+		string line;
 		try{
-      string line;
-	  getline( in, line);
-	  if(!line.empty()){
-	  DataRecord dr(line);
-	  out << dr << endl;
-	  }
+			getline( in, line);
+			if(!line.empty()){
+
+				DataRecord dr(line);
+				out << dr << endl;
+			}
 		}catch(boost::exception &e){
 			cout << "Boost Exception!" << '\n';
+			garbage << line;
 		}catch(std::exception &e){
 			cout << e.what() << '\n';
+			garbage << line;
 		}
 	}
 
