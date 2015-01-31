@@ -4,30 +4,26 @@
  Author      :
  Version     :
  Copyright   : Your copyright notice
- Description : Hello World in C++,
+ Description : Big Data in Finance Assigment 1
  ============================================================================
  */
 #include <exception>
 #include <iostream>
 #include <climits>
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <chrono>
 #include <random>
 #include <thread>
-#include "bdif1_test.h"
+#include "DataRecord.h"
 
 #define START_TIMER std::chrono::system_clock::time_point t0 = std::chrono::system_clock::now()
 #define END_TIMER std::chrono::system_clock::time_point t1 = std::chrono::system_clock::now()
 #define ELAPSED_TIME std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count()
 
-#include <fstream>
-
 
 using namespace std;
 
-//posix_time::to_iso_extended_string(
 
 int main(void) {
 
@@ -43,7 +39,7 @@ int main(void) {
       string line;
 	  getline( in, line);
 	  if(!line.empty()){
-	  DataRecord2 dr(line);
+	  DataRecord dr(line);
 	  out << dr << endl;
 	  }
 		}catch(boost::exception &e){

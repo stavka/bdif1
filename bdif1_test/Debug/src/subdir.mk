@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/DataRecord.cpp \
 ../src/bdif1_test.cpp 
 
 OBJS += \
+./src/DataRecord.o \
 ./src/bdif1_test.o 
 
 CPP_DEPS += \
+./src/DataRecord.d \
 ./src/bdif1_test.d 
 
 

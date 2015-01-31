@@ -41,3 +41,9 @@ DataRecord::~DataRecord() {
 	// TODO Auto-generated destructor stub
 }
 
+ostream& operator<<(ostream& out, const DataRecord& x) {
+  //string test3 = boost::posix_time::to_iso_extended_string(x.timestamp);
+  out << x .timestamp << " X " << x.price << " X " << x.volume ;
+  return out;
+}
+
