@@ -28,8 +28,7 @@ DataRecord::~DataRecord() {
 }
 
 ostream& operator<<(ostream& out, const DataRecord& x) {
-  //string test3 = boost::posix_time::to_iso_extended_string(x.timestamp);
-  out << posix_time::to_iso_extended_string(x.timestamp) << " X " << x.price << " X " << x.volume ;
+  out << posix_time::to_iso_extended_string(x.timestamp) << "," << x.price << "," << x.volume ;
   return out;
 }
 

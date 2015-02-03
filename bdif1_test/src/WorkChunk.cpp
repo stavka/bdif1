@@ -6,6 +6,7 @@
  */
 
 #include "WorkChunk.h"
+#include "Log.h"
 
 
 WorkChunk::WorkChunk() {
@@ -19,12 +20,14 @@ WorkChunk::~WorkChunk() {
 
 void WorkChunk::operator()(){
 
-		cout << "Starting work " << std::this_thread::get_id() << endl;
+	    FILE_LOG(logINFO) << "Starting work " << std::this_thread::get_id();
+
 		int lineCounter = 0;
 		for(auto line : incomingData){
             ++ lineCounter;
-            if(lineCounter%100==0) cout << std::this_thread::get_id() << "Line processed: " << lineCounter << endl;
-            //cout << std::this_thread::get_id() << " Line processed: " << lineCounter << endl;
+            if(lineCounter%100==0)
+            	FILE_LOG(logDEBUG) << std::this_thread::get_id() << " Line processed: " << lineCounter;
+
 			try{
 				DataRecord dr(line);
 				outgoingData.push_back(dr);
