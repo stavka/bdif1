@@ -138,8 +138,7 @@ int main(void) {
 
         for(int tn=0; tn < numberOfThreads; ++tn){
            // setup work
-        	FILE_LOG(logINFO) << "Thread # " << tn << " preparing";
-        	FILE_LOG(logINFO) << "Lines " << tn*linesPerThread << " to " << (tn+1)*linesPerThread-1;
+        	FILE_LOG(logINFO) << "Thread # " << tn << " preparing lines " << tn*linesPerThread << " to " << (tn+1)*linesPerThread-1;
 
         	// this copies data to the thread, need to change this in next version
             for(int lineNumber=tn*linesPerThread; lineNumber < (tn+1)*linesPerThread && lineNumber < lineCounter; ++lineNumber ){

@@ -20,7 +20,7 @@ WorkChunk::~WorkChunk() {
 
 void WorkChunk::operator()(){
 
-	    FILE_LOG(logINFO) << "Starting work " << std::this_thread::get_id();
+	    FILE_LOG(logINFO) << std::this_thread::get_id() << " Starting work ";
 
 		int lineCounter = 0;
 		for(auto line : incomingData){
