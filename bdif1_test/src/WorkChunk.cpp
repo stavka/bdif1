@@ -25,9 +25,9 @@ void WorkChunk::operator()(){
 		int lineCounter = 0;
 		for(auto line : incomingData){
             ++ lineCounter;
-            if(lineCounter%100==0)
+            if(lineCounter%100==0){
             	FILE_LOG(logDEBUG) << std::this_thread::get_id() << " Line processed: " << lineCounter;
-
+            }
 			try{
 				DataRecord dr(line);
 				outgoingData.push_back(dr);

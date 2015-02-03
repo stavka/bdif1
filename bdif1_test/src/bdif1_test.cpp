@@ -52,38 +52,38 @@ int main(void) {
 	std::ofstream out("signal.txt");
 	std::ofstream garbage("noise.txt");
 
-	const int runVersion = 3;
+	const int runVersion = 2;
 
 	START_TIMER;
 
 	FILELog::ReportingLevel() = FILELog::FromString("DEBUG1");
 	FILE_LOG(logINFO) << "Starting Program";
 
-
 	if(runVersion == 0){
-	while (in)
-	{
-		string line;
-		try{
-			getline( in, line);
-			if(!line.empty()){
+    /// first version, the simplest line by line
+		while (in)
+		{
+			string line;
+			try{
+				getline( in, line);
+				if(!line.empty()){
 
-				DataRecord dr(line);
-				out << dr << endl;
+					DataRecord dr(line);
+					out << dr << endl;
+				}
+			}catch(boost::exception &e){
+				FILE_LOG(logERROR) << "Boost Exception!";
+				garbage << line;
+			}catch(std::exception &e){
+				FILE_LOG(logERROR) << e.what();
+				garbage << line;
 			}
-		}catch(boost::exception &e){
-			FILE_LOG(logERROR) << "Boost Exception!";
-			garbage << line;
-		}catch(std::exception &e){
-			FILE_LOG(logERROR) << e.what();
-			garbage << line;
 		}
-	}
 	}else if(runVersion == 1){
+	/// test version creating one thread and passing data
 
 		vector<string> allTheData;
 		FILE_LOG(logINFO) << "Starting main loop";
-
 
 		while (in)
 		{
@@ -99,20 +99,18 @@ int main(void) {
 		vector<DataRecord> noiseData;
 
 		std::thread threadOnly;
-
 		threadOnly = std::thread(ThreadFunction, std::ref(allTheData), std::ref(signalData), std::ref(noiseData) );
-
 		threadOnly.join();
 
 		FILE_LOG(logINFO) << "Done with thread";
 
-		const time_t ctt = time(0);
-		FILE_LOG(logINFO) << "Signal generated " << asctime(std::localtime(&ctt));
-
 		for(auto x: signalData) out << x << endl;
 		for(auto x: noiseData) garbage << x << endl;
 
-	    }else if(runVersion == 3){
+		FILE_LOG(logINFO) << "Files Saved";
+
+	}else if(runVersion == 2){
+	// basic multithread version, read all data, copy into threads and run them.
 
 		const int numberOfThreads = 4;
 
@@ -143,6 +141,7 @@ int main(void) {
         	FILE_LOG(logINFO) << "Thread # " << tn << " preparing";
         	FILE_LOG(logINFO) << "Lines " << tn*linesPerThread << " to " << (tn+1)*linesPerThread-1;
 
+        	// this copies data to the thread, need to change this in next version
             for(int lineNumber=tn*linesPerThread; lineNumber < (tn+1)*linesPerThread && lineNumber < lineCounter; ++lineNumber ){
             	wcs[tn].incomingData.push_back(allTheData[lineNumber]);
             }
@@ -152,17 +151,15 @@ int main(void) {
 
         for(int tn=0; tn < numberOfThreads; ++tn){
         	allThreads[tn].join();
-            // process results
         }
 
 		FILE_LOG(logINFO) << "Done with work";
 
-		const time_t ctt = time(0);
-		FILE_LOG(logINFO) << "signal generated " << asctime(std::localtime(&ctt)) << endl;
 		for(auto wc: wcs){
 			for(auto dr: wc.outgoingData) out << dr << endl;
 			for(auto dr: wc.garbage) garbage << dr << endl;
 		}
+		FILE_LOG(logINFO) << "Files saved";
 
 	}
 
