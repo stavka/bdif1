@@ -19,7 +19,10 @@ DataRecord::DataRecord(const string &inputString){
         		                       ,posix_time::time_duration( posix_time::duration_from_string(tokens[0].substr(9,15)) )
         		                    );
     price = stod(tokens[1]);
+    if(price < 0) throw std::range_error("negative price");
+
     volume = std::stoi(tokens[2]);
+    if(volume < 0) throw std::range_error("negative volume");
 
 }
 
