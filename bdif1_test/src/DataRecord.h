@@ -25,7 +25,8 @@ private:
 
 public:
 	friend ostream& operator<<(ostream& os, const DataRecord& dt);
-	DataRecord(const std::string &inputString);
+	bool operator< (const DataRecord& other) const;
+	DataRecord(const std::string& inputString);
 	virtual ~DataRecord();
 };
 

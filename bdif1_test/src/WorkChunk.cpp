@@ -8,7 +8,6 @@
 #include "WorkChunk.h"
 #include "Log.h"
 
-
 WorkChunk::WorkChunk() {
 	// TODO Auto-generated constructor stub
 
@@ -17,6 +16,7 @@ WorkChunk::WorkChunk() {
 WorkChunk::~WorkChunk() {
 	// TODO Auto-generated destructor stub
 }
+
 
 void WorkChunk::operator()(){
 
@@ -39,5 +39,7 @@ void WorkChunk::operator()(){
 				garbage.push_back(line);
 			}
 		}
+		sort(outgoingData.begin(),outgoingData.end());
+
 	}
 

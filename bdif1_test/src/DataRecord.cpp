@@ -30,8 +30,15 @@ DataRecord::~DataRecord() {
 	// TODO Auto-generated destructor stub
 }
 
+bool DataRecord::operator< (const DataRecord& other) const {
+        return timestamp < other.timestamp;
+}
+
 ostream& operator<<(ostream& out, const DataRecord& x) {
   out << posix_time::to_iso_extended_string(x.timestamp) << "," << x.price << "," << x.volume ;
   return out;
 }
+
+
+
 
